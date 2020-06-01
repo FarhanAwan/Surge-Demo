@@ -1,0 +1,29 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Deploly Website with Surge
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+    name: Job_Deploy_Surge
+    runs-on: ubuntu_latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: setup Node
+       uses: actions/setup-node@v2-beta
+       with:
+         node-version: '12'
+     - name: Setup Surge
+       run: npm install --global surge
+     - name: Execute Deployment with Surge
+       run: surge ./ surge-farhan-demo.surge.sh --token ${{ secrets.Surge_Demo_Surge_Token }}
+
+
+
